@@ -1,0 +1,5 @@
+bundle:
+  name: retailpro_databricks
+
+include:
+  - resources/*.yml
