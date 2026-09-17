@@ -1,15 +1,17 @@
 def silver_to_gold(spark):
-    # Read Silver table
+
     silver_df = spark.table(
         "sales_catalog.retailpro.silver_orders"
     )
 
-    # Create product-level business summary
     gold_df = (
         silver_df
         .groupBy("product")
         .agg(
-            {"quantity": "sum", "amount": "sum"}
+            {
+                "quantity": "sum",
+                "amount": "sum"
+            }
         )
         .withColumnRenamed(
             "sum(quantity)",
@@ -21,7 +23,6 @@ def silver_to_gold(spark):
         )
     )
 
-    # Write Gold table
     gold_df.write \
         .format("delta") \
         .mode("overwrite") \
@@ -30,3 +31,7 @@ def silver_to_gold(spark):
         )
 
     return "Gold transformation completed"
+
+
+if __name__ == "__main__":
+    print(silver_to_gold(spark))

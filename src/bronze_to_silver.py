@@ -1,10 +1,9 @@
 def bronze_to_silver(spark):
-    # Read Bronze table
+
     bronze_df = spark.table(
         "sales_catalog.retailpro.bronze_orders"
     )
 
-    # Clean and validate the data
     silver_df = (
         bronze_df
         .filter("order_id IS NOT NULL")
@@ -13,7 +12,6 @@ def bronze_to_silver(spark):
         .filter("amount > 0")
     )
 
-    # Write Silver table
     silver_df.write \
         .format("delta") \
         .mode("overwrite") \
@@ -22,3 +20,7 @@ def bronze_to_silver(spark):
         )
 
     return "Silver transformation completed"
+
+
+if __name__ == "__main__":
+    print(bronze_to_silver(spark))
