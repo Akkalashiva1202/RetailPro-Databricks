@@ -3,3 +3,9 @@ bundle:
 
 include:
   - resources/*.yml
+
+targets:
+  ci:
+    workspace:
+      host: https://dbc-232389e7-a708.cloud.databricks.com
+      root_path: /Workspace/Shared/RetailPro-Databricks/.bundle/${bundle.name}/${bundle.target}
